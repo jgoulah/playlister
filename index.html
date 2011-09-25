@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Playlister</title>
+    <link href="css/songs.css" media="all" rel="stylesheet" type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <!-- ALL jQuery Tools. No jQuery library -->
+    <script src="http://cdn.jquerytools.org/1.2.5/all/jquery.tools.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+    <script src="js/underscore-1.1.6.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/backbone-collection-iterator.js"></script>
+    <script src="js/backbone-localstorage.js"></script>
+    <script src="js/token.js"></script>
+    <script src="js/rdio.js"></script>
+    <script src="js/songs.js"></script>
+  </head>
+
+  <body>
+
+    <!-- song App Interface -->
+
+    <div id="songapp">
+
+      <div class="content">
+        <div id="rdio-player"></div>
+
+        <div id="create-song">
+          <input id="new-song" placeholder="Search for a song" type="text" />
+          <span class="ui-tooltip-top" style="display:none;">Enter a song</span>
+        </div>
+
+        <div id="songs">
+          <ul id="song-list"></ul>
+        </div>
+
+        <div id="song-stats"></div>
+
+      </div>
+
+    </div>
+
+    <!---------- Templates ---------->
+
+    <!-- songpicker dialog -->
+    <div class="modal" id="picksong"></div>
+    <script type="text/template" id="picksong-template">
+        <h2>Which song do you want?</h2>
+
+          <ul id="songpick-list"></ul>
+
+        <p>
+          <button class="close">Cancel</button>
+        </p>
+    </script>
+
+    <!-- songpicker element -->
+    <script type="text/template" id="pickitem-template">
+      <div class="picksong-info">
+        <span class="picksong-text"></span> by <span class="picksong-artist"></span>
+      </div>
+    </script>
+    
+
+    <!-- Rdio player -->
+    <script type="text/template" id="player-template">
+        <div id="apiswf"></div>
+
+        <div id="player">
+
+            <div id="track"></div>
+            <div id="album"></div>
+            <div id="artist"></div>
+            <div id="album-art"><img src="images/default-logo.png" id="art"/></div>
+            <div id="position"></div>
+            <div id="buttons">
+                <a title="advance to the previous track"  id="prev" class="button"></a>
+                <a title="pause the current track"  id="pause" class="button"></a>
+                <a title="advance to the next track"  id="next" class="button"></a>
+            </div>
+
+        </div>
+    </script>
+
+    <!-- playlist element -->
+    <script type="text/template" id="item-template">
+      <div class="song <%= done ? 'done' : '' %>">
+        <div class="display">
+          <input class="check" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
+          <div class="song-text"></div>
+          <span class="song-destroy"></span>
+        </div>
+      </div>
+    </script>
+
+    <!-- stats -->
+    <script type="text/template" id="stats-template">
+      <% if (total) { %>
+        <span class="song-count">
+          <span class="number"><%= remaining %></span>
+          <span class="word"><%= remaining == 1 ? 'song' : 'songs' %></span>.
+        </span>
+      <% } %>
+      <% if (done) { %>
+        <span class="song-clear">
+          <a href="#">
+            Clear <span class="number-done"><%= done %></span>
+            completed <span class="word-done"><%= done == 1 ? 'item' : 'items' %></span>
+          </a>
+        </span>
+      <% } %>
+    </script>
+
+  </body>
+
+</html>
